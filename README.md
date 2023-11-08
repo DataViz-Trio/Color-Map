@@ -98,6 +98,6 @@ For the purpose of the discrete color mapping, I have chosen discrete colors tha
         - In this case, the animation is configured not to repeat after playing once (repeat=False). Additionally, there's a repeat delay of 3000 milliseconds before the animation restarts.
         - The final result is an animation represented by the ani variable, which combines all the frames and is ready for saving as a video. An fps rate of 1 is specified, which means each visualization appears 1 second after the previous one.
 
-[^1] : https://matplotlib.org/stable/ \
-[^2] : https://waldyrious.net/viridis-palette-generator/ \
-[^3] : https://matplotlib.org/stable/users/explain/colors/colormaps.html \
+[^1]: https://matplotlib.org/stable/ 
+[^2]: https://waldyrious.net/viridis-palette-generator/ 
+[^3]: https://matplotlib.org/stable/users/explain/colors/colormaps.html
