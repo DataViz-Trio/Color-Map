@@ -58,45 +58,29 @@
 - The *discrete_plot* function is similar to the previously described *continuous_plot* function, but with a focus on visualizing discrete data rather than continuous data. It plots data on a world map using Matplotlib and Cartopy, with discrete color mapping based on specified boundaries and colors. Here's what is different in the implementation of discrete mapping:
 
     - Boundaries and Colors:
-        - The boundaries list defines the boundaries that separate the discrete intervals for data visualization. These boundaries determine the range for each color category. We set the values to between 0 and 0.5, with a step of 0.05.
-        - The colors list defines a corresponding set of colors for each category, with a specific color assigned to each range between the boundaries. The list of colors should be in the same order as the boundaries, with colors assigned to categories from low to high values.
+        - The boundaries list defines the boundaries that separate the discrete intervals for data visualization.
+        - The colors list defines a corresponding set of colors for each category, with a specific color assigned to each range between the boundaries. The list of colors should be in the same order as the boundaries, with colors assigned to categories from low to high values. Finally, an outlier color is added to the colors list which maps all values greater than 2 to that color.
 
     - BoundaryNorm: 
         - The BoundaryNorm is an essential component for discrete color mapping. It is created with the boundaries and the number of colors to be used (len(colors) in this case).
         - The BoundaryNorm is used to map data values to the appropriate color category based on the specified boundaries. It ensures that data falling within a specific range is assigned the corresponding color from the colors list. 
 
-For the purpose of the discrete color mapping, I have chosen discrete colors that correspond to the viridis color mapping, which can be generated here[^2].
+For the purpose of the discrete color mapping, discrete colors are generated for a given color mapping using the plt.get_cmap method.
 
 - The *log_plot* function is another function for visualizing data on a world map using Matplotlib and Cartopy, but it differs from the previous functions in how it handles data scaling and color mapping. Here's a description of what is different in this function:
 
     - Scaling with Logarithmic Normalization: The primary difference in this function is the use of logarithmic normalization for scaling the data. This is achieved by creating a LogNorm instance and assigning it to the norm variable.
 
-    - Color Map: In this function, the color map used is "viridis." Viridis is a perceptually uniform color map, designed to work well with people who have color vision deficiencies. It's especially suited for data visualizations where the relative ordering of data values is important.
+An offset of 10^-10 is added to all points to avoid white points on the plot where the value is 0 due to logarithmic normalization. 
 
 ## Implementation
 
 - In order to try different color maps, only the first dataset (of 1st April 2016) is chosen. 
 - The dataset is fed to the *data = numpy.ma.masked_where(data == BAD_VALUE, data)* masks the BAD_VALUE and is not plotted on the world map.
 - Then, to decide the best color map, I followed the following steps and performed the color mapping on all the 10 dates chosen:
-    - First, I performed a continous plot with different color mappings[^3]. Refer to the report to view the different experimented color mappings and to find out why I chose viridis.
-    - Next, I performed a continous, discrete and logarithmic color mapping. Refer to the report for why I chose continous color mapping.
-- Finally, an .mp4 animation was created using the 10 different continous color maps, whose text files are in the datasets folder. The implementation for generating the animation is:
-
-    - Update Function:
-        - The update function is a callback function invoked for each frame of the animation. It receives the frame argument, representing the current frame number.
-        - Within the update function, the cax (image plot) is updated with the data from the data_list for the corresponding frame and the title is also changed respectively.
-
-    - Frame Generation:
-        - The frame generation process involves creating individual frames that constitute the animation. An empty list called frames is initiated to store these frames.
-        - A loop iterates through each item in the data_list. For each item (frame), it calls the continuous_plot function, passing the data and title as input.
-        - Each call to the continuous_plot function generates a single frame, effectively capturing a snapshot of the data for that frame.
-        - These frames are sequentially added to the frames list. As the loop progresses, more frames are collected until all frames have been generated. The frames list contains all the frames necessary for the animation.
-
-    - Animation Creation:
-        - The animation creation phase is responsible for assembling the frames into a coherent animation. This is achieved using the FuncAnimation class.
-        - The class takes several parameters, including the figure, the update function (update), the number of frames (equal to the length of the data_list), and other animation settings.
-        - In this case, the animation is configured not to repeat after playing once (repeat=False). Additionally, there's a repeat delay of 3000 milliseconds before the animation restarts.
-        - The final result is an animation represented by the ani variable, which combines all the frames and is ready for saving as a video. An fps rate of 1 is specified, which means each visualization appears 1 second after the previous one.
+    - First, I performed a continous, discrete and logarithmic color mapping. Refer to the report as to why discrete color mapping was finally chosen.
+    - Then, I performed a discrete plot with different color mappings[^3]. Refer to the report to view the different experimented color mappings and to find out why I chose viridis.
+- Finally, an .mp4 animation was created using the 10 different continous color maps, whose text files are in the datasets folder. 
 
 [^1]: https://matplotlib.org/stable/ 
 [^2]: https://waldyrious.net/viridis-palette-generator/ 
