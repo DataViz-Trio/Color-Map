@@ -13,7 +13,7 @@
     - 10, 20, 30 April 2016
     - 10, 20, 30 June 2016 
 
-## Color Mapping Data Processing: 
+## Data Processing: 
 
 - We ignore the first 7 lines and start reading the text file from the 8th line. We ignore the 7th line as well since the longitudes in the dataset are in the same order that the library expects. Hence, we do not need to explicitly store the longitudes to perform any sort of data processing later on.
 - We store each line in a list. We drop the first element of each list, which corresponds to the latitude for that line. The reason for dropping the latitude is the same as the reason for dropping the longitudes. 
@@ -21,6 +21,15 @@
 - We split the line at all the spaces. If the last element of the line contains ** line too long **, we pop the last element out of the list. We then convert all strings (the surface rain rates) to their float values. 
 - Due to the limitation of Text files, not all rows contain 1440 values. Hence, we keep adding the BAD VALUE to the list until the length of the list is 1440. 
 - All these lists (rows) are added to another list to generate a 2D list.
+
+## Data Analysis
+
+- In the *data_analysis.ipynb* file, we analyse the data set
+- We first check the maximum value for all the different dates. We notice that it is 25 for 9 out of the 10 dates and 16.78 for only one date.
+- Hence, we decide to keep the maximum value in the boundaries of the discrete color mapping as 25.
+- We next analyse the boundaries that will be assumed for the discrete color mapping.
+- We check the percentage of values which are greater than 2 for each dataset and notice that only 1% of values in each dataset are greater than 2.
+- Hence, in the color mapping, all values greater than 2 will be colored with an "outlier color" which is different from the colors used in the color mapping for the other points. For eg. red for the viridis color map.
 
 ## Color Mapping Implementation
 
@@ -59,7 +68,7 @@
 
     - Boundaries and Colors:
         - The boundaries list defines the boundaries that separate the discrete intervals for data visualization.
-        - The colors list defines a corresponding set of colors for each category, with a specific color assigned to each range between the boundaries. The list of colors should be in the same order as the boundaries, with colors assigned to categories from low to high values. Finally, an outlier color is added to the colors list which maps all values greater than 2 to that color.
+        - The colors list defines a corresponding set of colors for each category, with a specific color assigned to each range between the boundaries. The list of colors should be in the same order as the boundaries, with colors assigned to categories from low to high values. Finally, an outlier color is added to the colors list which maps all values greater than 2 to that color. Each color map has a different outlier color for it based on the colors already present in the color axis.
 
     - BoundaryNorm: 
         - The BoundaryNorm is an essential component for discrete color mapping. It is created with the boundaries and the number of colors to be used (len(colors) in this case).
