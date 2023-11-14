@@ -2,7 +2,7 @@
 
 ## Dataset Description:
 
-- The color mapping and contour plot datasets follow the following pattern:
+- The color mapping dataset follows the following pattern:
 - The First Six lines of the dataset provide some information about the dataset such as the variable being plotted (surface rain rate in our case), the Flag which denotes a bad value (-999 in this dataset), the number of rows and columns in the dataset and the date on which the data was collected.
 - From the 7th line, the data is presented. The dataset follows the following pattern:
 - Each column corresponds to a longitude. The longitudes begin at 0.125E.
@@ -88,9 +88,9 @@ An offset of 10^-10 is added to all points to avoid white points on the plot whe
 - The dataset is fed to the *data = numpy.ma.masked_where(data == BAD_VALUE, data)* masks the BAD_VALUE and is not plotted on the world map.
 - Then, to decide the best color map, I followed the following steps and performed the color mapping on all the 10 dates chosen:
     - First, I performed a continous, discrete and logarithmic color mapping. Refer to the report as to why discrete color mapping was finally chosen.
-    - Then, I performed a discrete plot with different color mappings[^3]. Refer to the report to view the different experimented color mappings and to find out why I chose viridis.
-- Finally, an .mp4 animation was created using the 10 different continous color maps, whose text files are in the datasets folder. 
+    - Then, I performed a discrete plot with different color mappings[^3]. Refer to the report to view the different experimented color mappings.
+- After zeroing in on discrete plot, the images for the color mappings for all 10 dates were generated.
+- Finally, an .mp4 animation was created using the 8 different discrete color maps for all 10 dates.
 
 [^1]: https://matplotlib.org/stable/ 
-[^2]: https://waldyrious.net/viridis-palette-generator/ 
 [^3]: https://matplotlib.org/stable/users/explain/colors/colormaps.html
